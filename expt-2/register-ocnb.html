@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Registration</title>
+
+<style>
+    body {
+        font-family: 'Segoe UI';
+        background: #f4f7f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .card {
+        background: #fff;
+        padding: 35px;
+        width: 360px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border-top: 5px solid #003366;
+    }
+    h2 {
+        text-align: center;
+        color: #003366;
+    }
+    input, button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 12px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+    button {
+        background: #003366;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .error {
+        color: #c0392b;
+        font-size: 0.8rem;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Registration</h2>
+
+    <input type="text" id="fname" placeholder="First Name">
+    <div class="error" id="fnameErr"></div>
+
+    <input type="password" id="password" placeholder="Password">
+    <div class="error" id="passErr"></div>
+
+    <input type="text" id="email" placeholder="Email ID (name@domain.com)">
+    <div class="error" id="emailErr"></div>
+
+    <input type="text" id="mobile" placeholder="Mobile Number">
+    <div class="error" id="mobileErr"></div>
+
+    <button onclick="register()">Register</button>
+</div>
+
+<script>
+function register() {
+    let fname = document.getElementById("fname").value.trim();
+    let password = document.getElementById("password").value;
+    let email = document.getElementById("email").value.trim();
+    let mobile = document.getElementById("mobile").value.trim();
+
+    let valid = true;
+
+    document.getElementById("fnameErr").innerText = "";
+    document.getElementById("passErr").innerText = "";
+    document.getElementById("emailErr").innerText = "";
+    document.getElementById("mobileErr").innerText = "";
+
+    let namePattern = /^[A-Za-z]{6,}$/;
+    let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    let mobilePattern = /^[0-9]{10}$/;
+
+    if (!namePattern.test(fname)) {
+        document.getElementById("fnameErr").innerText =
+            "Name must contain alphabets and minimum 6 characters";
+        valid = false;
+    }
+
+    if (password.length < 6) {
+        document.getElementById("passErr").innerText =
+            "Password must be at least 6 characters";
+        valid = false;
+    }
+
+    if (!emailPattern.test(email)) {
+        document.getElementById("emailErr").innerText =
+            "Invalid email format (name@domain.com)";
+        valid = false;
+    }
+
+    if (!mobilePattern.test(mobile)) {
+        document.getElementById("mobileErr").innerText =
+            "Mobile number must contain exactly 10 digits";
+        valid = false;
+    }
+
+    if (valid) {
+        sessionStorage.setItem("email", email);
+        sessionStorage.setItem("password", password);
+        alert("Registration Successful");
+        window.location.href = "login2-ocnb.html";
+    }
+}
+</script>
+
+</body>
+</html>

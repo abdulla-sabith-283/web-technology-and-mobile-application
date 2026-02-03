@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REC Login</title>
+
+    <!-- Font Awesome for eye icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-blue: #003366;
+            --bg-color: #f4f7f9;
+            --white: #ffffff;
+            --error-red: #c0392b;
+            --success-green: #27ae60;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-card {
+            background: var(--white);
+            padding: 40px;
+            width: 360px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--primary-blue);
+        }
+
+        .login-card h2 {
+            text-align: center;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+
+        .login-card p {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 0.95rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #777;
+        }
+
+        .error {
+            color: var(--error-red);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #002244;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2>REC Login</h2>
+        <p>Online Notice Board Access</p>
+
+        <!-- Username -->
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="student@rajalakshmi.edu.in">
+            <div class="error" id="usernameError"></div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="password" placeholder="Enter password">
+                <i class="fa-solid fa-eye" onclick="togglePassword()"></i>
+            </div>
+            <div class="error" id="passwordError"></div>
+        </div>
+
+        <button onclick="login()">Login</button>
+
+        <div class="footer-text">
+            © 2026 Rajalakshmi Engineering College
+        </div>
+    </div>
+
+    <script>
+function login() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+
+    const usernameError = document.getElementById("usernameError");
+    const passwordError = document.getElementById("passwordError");
+
+    usernameError.style.display = "none";
+    passwordError.style.display = "none";
+
+    const storedEmail = sessionStorage.getItem("email");
+    const storedPassword = sessionStorage.getItem("password");
+
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    let isValid = true;
+
+    if (username === "") {
+        usernameError.innerText = "Email is required";
+        usernameError.style.display = "block";
+        isValid = false;
+    } else if (!emailPattern.test(username)) {
+        usernameError.innerText = "Invalid email format";
+        usernameError.style.display = "block";
+        isValid = false;
+    }
+
+    if (password === "") {
+        passwordError.innerText = "Password is required";
+        passwordError.style.display = "block";
+        isValid = false;
+    }
+
+    if (isValid) {
+        if (username === storedEmail && password === storedPassword) {
+            window.location.href = "ocnb.html";
+        } else {
+            passwordError.innerText = "Invalid Email ID or Password";
+            passwordError.style.display = "block";
+        }
+    }
+}
+</script>
+
+
+</body>
+</html>
